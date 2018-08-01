@@ -1,0 +1,9 @@
+spring.application.name: pcd1718-paas-chatroomsservice # logical name to be registered
+spring.profiles.active: default # profile maps to environment
+spring.cloud.config.uri: ${CONFIG_SERVICE_URI}
+
+management.endpoints.enabled-bydefault: true
+#management.endpoints.web.exposure.include: refresh
+#management.endpoints.jmx.exposure.exclude: "*"
+management.endpoints.web.exposure.include: "*"
+management.endpoints.web.exposure.exclude: env #https://github.com/spring-projects/spring-boot/issues/13126

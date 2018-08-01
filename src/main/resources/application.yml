@@ -1,0 +1,7 @@
+server.port: ${PORT}
+
+eureka.instance.preferIpAddress: true # register IP rather than the server name
+eureka.client:
+  registerWithEureka: true
+  fetchRegistry: true # pull down a local copy of the registry
+  serviceUrl.defaultZone: ${SERVICE_REGISTRY_URI}
