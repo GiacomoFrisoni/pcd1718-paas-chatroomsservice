@@ -25,16 +25,18 @@ public class ChatController {
 
 	@MessageMapping("/chat/{roomId}/sendMessage")
 	public void sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage) {
-		// TODO: Transforms to ordered chat messages
 		messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), chatMessage);
 	}
 
 	@MessageMapping("/chat/{roomId}/addUser")
 	public void addUser(@DestinationVariable String roomId, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		// Saves user data into the related socket session
+		final String username = chatMessage.getSender();
+		headerAccessor.getSessionAttributes().put("username", username);
 		headerAccessor.getSessionAttributes().put("room_id", roomId);
-		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-		
-		if (roomId != null) {
+		// Checks data
+		if (username != null && roomId != null) {
+			// Sends a join message to the clients connected in the same room
 			final ChatMessage leaveMessage = new ChatMessage();
 			leaveMessage.setType(MessageType.JOIN);
 			leaveMessage.setSender(chatMessage.getSender());

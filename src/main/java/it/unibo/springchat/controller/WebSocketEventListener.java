@@ -29,18 +29,17 @@ public class WebSocketEventListener {
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+		// Retrieves and checks session data for the socket connection
 		final StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-
 		final String username = (String) headerAccessor.getSessionAttributes().get("username");
 		final String roomId = (String) headerAccessor.getSessionAttributes().get("room_id");
-		if (username != null) {
-			logger.info("User " + username + " disconnected from room " + roomId);
-
-			ChatMessage chatMessage = new ChatMessage();
+		if (username != null && roomId != null) {
+			// Sends a logout message to the clients connected in the same room
+			final ChatMessage chatMessage = new ChatMessage();
 			chatMessage.setType(MessageType.LEAVE);
 			chatMessage.setSender(username);
-
 			messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), chatMessage);
+			logger.info("User " + username + " disconnected from room " + roomId);
 		}
 	}
 	

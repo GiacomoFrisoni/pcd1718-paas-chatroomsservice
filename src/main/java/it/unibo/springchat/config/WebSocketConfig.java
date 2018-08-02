@@ -12,6 +12,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		// Registers a STOMP end-point over websockets with Sock.js enabled
 		registry.addEndpoint("/websocket-chat")
 				.setAllowedOrigins("*")
 				.withSockJS();
@@ -19,9 +20,17 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		// Enables a full featured broker like RabbitMQ
-		registry.setApplicationDestinationPrefixes("/app")
-				.enableStompBrokerRelay("/topic")
+		/*
+		 * Defines a prefix for destinations handled by the application itself.
+		 */
+		registry.setApplicationDestinationPrefixes("/app");
+		/*
+		 * Enables a full featured broker based on RabbitMQ.
+		 * For RabbitMQ STOMP support (and 61613 port enabling), it is required the execution of this command:
+		 * rabbitmq-plugins enable rabbitmq_stomp.
+		 * NOTE: RabbitMQ does not support "/" as a destination separator.
+		 */
+		registry.enableStompBrokerRelay("/topic")
 				.setRelayHost("localhost")
 				.setRelayPort(61613)
 				.setClientLogin("guest")
