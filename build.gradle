@@ -52,7 +52,7 @@ dependencyManagement {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-websocket')
-	compile('org.webjars:webjars-locator')
+	compile('org.webjars:webjars-locator:0.34')
 	compile('org.webjars:sockjs-client:1.1.2')
 	compile('org.webjars:stomp-websocket:2.3.3')
 	compile('org.webjars:js-cookie:2.2.0')
