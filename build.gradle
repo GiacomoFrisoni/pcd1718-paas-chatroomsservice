@@ -19,7 +19,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'pcd1718-paas-chatroomsservice'
+    baseName = 'ass4-paas-chatroomsservice'
     version =  '1.0.0'
 }
 
