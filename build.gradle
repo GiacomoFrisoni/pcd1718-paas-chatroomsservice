@@ -52,13 +52,16 @@ dependencyManagement {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-websocket')
+	compile('org.webjars:webjars-locator')
 	compile('org.webjars:sockjs-client:1.1.2')
 	compile('org.webjars:stomp-websocket:2.3.3')
-	compile('org.webjars:js-cookie:2.1.4')
+	compile('org.webjars:js-cookie:2.2.0')
 	compile('org.webjars:jquery:3.2.1')
 	compile('org.springframework.boot:spring-boot-starter-amqp')
 	compile('org.springframework.boot:spring-boot-devtools')
 	
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.cloud:spring-cloud-starter-config:1.4.3.RELEASE")
     compile("org.springframework.cloud:spring-cloud-config-client:1.4.3.RELEASE")
     compile("org.springframework.cloud:spring-cloud-starter-eureka:1.4.3.RELEASE")
