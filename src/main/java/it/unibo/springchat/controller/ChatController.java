@@ -26,21 +26,21 @@ public class ChatController {
 	@MessageMapping("/chat/{roomId}/sendMessage")
 	public void sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage) {
 		// TODO: Transforms to ordered chat messages
-		messagingTemplate.convertAndSend(format("/topic/%s", roomId), chatMessage);
+		messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), chatMessage);
 	}
 
 	@MessageMapping("/chat/{roomId}/addUser")
 	public void addUser(@DestinationVariable String roomId, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		headerAccessor.getSessionAttributes().put("room_id", roomId);
-		logger.info("User " + chatMessage.getSender() + " is trying to get the " + roomId);
+		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+		
 		if (roomId != null) {
 			final ChatMessage leaveMessage = new ChatMessage();
 			leaveMessage.setType(MessageType.JOIN);
 			leaveMessage.setSender(chatMessage.getSender());
-			messagingTemplate.convertAndSend(format("/topic/%s", roomId), leaveMessage);
-			logger.info("User " + chatMessage.getSender() + " joined to the " + roomId + ". Sent a message to " + format("/topic/%s", roomId));
+			messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), leaveMessage);
+			logger.info("User " + chatMessage.getSender() + " joined to the " + roomId + ". Sent a message to " + format("/topic/channel.%s", roomId));
 		}
-		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-		messagingTemplate.convertAndSend(format("/topic/%s", roomId), chatMessage);
+		
 	}
 }
