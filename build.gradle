@@ -60,6 +60,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-amqp')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.reactivestreams:reactive-streams:1.0.2')
+	compile('io.projectreactor:reactor-core:3.1.8.RELEASE')
 	
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
