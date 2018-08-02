@@ -59,6 +59,7 @@ dependencies {
 	compile('org.webjars:jquery:3.2.1')
 	compile('org.springframework.boot:spring-boot-starter-amqp')
 	compile('org.springframework.boot:spring-boot-devtools')
+	compile('org.reactivestreams:reactive-streams:1.0.2')
 	
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
