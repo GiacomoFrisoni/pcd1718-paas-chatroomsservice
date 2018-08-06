@@ -20,6 +20,11 @@ public class ChatMessage {
 		this.content = content;
 		this.sender = sender;
 	}
+	
+	public ChatMessage(MessageType messageType, String sender) {
+		this.messageType = messageType;
+		this.sender = sender;
+	}
 
 	public MessageType getType() {
 		return this.messageType;

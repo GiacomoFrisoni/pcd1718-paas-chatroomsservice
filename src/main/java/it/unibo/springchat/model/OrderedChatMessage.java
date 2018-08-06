@@ -5,23 +5,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OrderedChatMessage extends ChatMessage {
 	
-	private int order;
+	private long order;
 	
 	@JsonCreator
 	public OrderedChatMessage(
 			@JsonProperty("messageType") MessageType messageType,
 			@JsonProperty("content") String content,
 			@JsonProperty("sender") String sender,
-			int order) {
+			long order) {
 		super(messageType, content, sender);
 		this.order = order;
 	}
 	
-	public int getOrder() {
+	@JsonCreator
+	public OrderedChatMessage(
+			@JsonProperty("messageType") MessageType messageType,
+			@JsonProperty("sender") String sender,
+			long order) {
+		super(messageType, sender);
+		this.order = order;
+	}
+	
+	public long getOrder() {
 		return this.order;
 	}
 	
-	public void setOrder(int order) {
+	public void setOrder(long order) {
 		this.order = order;
 	}
 	

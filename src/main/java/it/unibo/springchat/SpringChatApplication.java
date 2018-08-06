@@ -5,15 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @RefreshScope
-@EnableTransactionManagement
+@EnableEurekaClient
+@EnableFeignClients
 public class SpringChatApplication extends SpringBootServletInitializer {
-
+	
 	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+	protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
 		return builder.sources(SpringChatApplication.class);
 	}
 
