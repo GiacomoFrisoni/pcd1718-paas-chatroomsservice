@@ -37,7 +37,7 @@ public class OrderedChatMessage extends ChatMessage {
 	@Override
     public String toString() {
         return "ChatMessage{" +
-                "messageType='" + super.getType().name() + '\'' +
+                "messageType='" + super.getMessageType().name() + '\'' +
                 ", content='" + super.getContent() + '\'' +
                 ", sender='" + super.getSender() + '\'' +
                 ", order=" + this.order +

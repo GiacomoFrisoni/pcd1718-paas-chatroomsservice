@@ -26,11 +26,11 @@ public class ChatMessage {
 		this.sender = sender;
 	}
 
-	public MessageType getType() {
+	public MessageType getMessageType() {
 		return this.messageType;
 	}
 
-	public void setType(MessageType messageType) {
+	public void setMessageType(MessageType messageType) {
 		this.messageType = messageType;
 	}
 

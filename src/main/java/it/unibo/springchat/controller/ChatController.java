@@ -32,7 +32,7 @@ public class ChatController {
 		
 		// Retrieves a ticket from the ticket dispenser service and creates and ordered message
 		final OrderedChatMessage orderedChatMessage = new OrderedChatMessage(
-				chatMessage.getType(),
+				chatMessage.getMessageType(),
 				chatMessage.getContent(),
 				chatMessage.getSender(),
 				this.ticketDispenserClient.getTicket(roomId));
