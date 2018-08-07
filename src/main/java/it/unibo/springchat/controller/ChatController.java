@@ -1,7 +1,5 @@
 package it.unibo.springchat.controller;
 
-import static java.lang.String.format;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+import it.unibo.springchat.config.Consts;
 import it.unibo.springchat.model.ChatMessage;
 import it.unibo.springchat.model.ChatMessage.MessageType;
 import it.unibo.springchat.model.OrderedChatMessage;
@@ -38,7 +37,7 @@ public class ChatController {
 				this.ticketDispenserClient.getTicket(roomId));
         
 		// Sends the ordered message to the clients of the same room
-		this.messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), orderedChatMessage);
+		this.messagingTemplate.convertAndSend(Consts.getTopic(roomId), orderedChatMessage);
 		
 		logger.info("Message '" + orderedChatMessage.getContent() + "'\n"
 				+ "from '" + orderedChatMessage.getSender() + "'\n"
@@ -52,8 +51,8 @@ public class ChatController {
 		
 		// Saves user data into the related socket session
 		final String username = chatMessage.getSender();
-		headerAccessor.getSessionAttributes().put("username", username);
-		headerAccessor.getSessionAttributes().put("room_id", roomId);
+		headerAccessor.getSessionAttributes().put(Consts.SESSION_USERNAME, username);
+		headerAccessor.getSessionAttributes().put(Consts.SESSION_ROOM_ID, roomId);
 		
 		// Checks data
 		if (username != null && roomId != null) {
@@ -62,8 +61,8 @@ public class ChatController {
 					MessageType.JOIN,
 					chatMessage.getSender(),
 					this.ticketDispenserClient.getTicket(roomId));
-			this.messagingTemplate.convertAndSend(format("/topic/channel.%s", roomId), joinMessage);
-			logger.info("User " + chatMessage.getSender() + " joined to the " + roomId + ". Sent a message to " + format("/topic/channel.%s", roomId));
+			this.messagingTemplate.convertAndSend(Consts.getTopic(roomId), joinMessage);
+			logger.info("User " + chatMessage.getSender() + " joined to the " + roomId + ". Sent a message to " + Consts.getTopic(roomId));
 		}
 		
 	}
