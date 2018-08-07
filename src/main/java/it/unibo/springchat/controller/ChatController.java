@@ -28,7 +28,9 @@ public class ChatController {
 
 	@MessageMapping("/chat/{roomId}/sendMessage")
 	public void sendMessage(@DestinationVariable final String roomId, @Payload final ChatMessage chatMessage) {
+		
 		logger.info("Trying to send the message...");
+		
 		// Retrieves a ticket from the ticket dispenser service and creates and ordered message
 		final OrderedChatMessage orderedChatMessage = new OrderedChatMessage(
 				chatMessage.getMessageType(),
@@ -41,7 +43,7 @@ public class ChatController {
 		
 		logger.info("Message '" + orderedChatMessage.getContent() + "'\n"
 				+ "from '" + orderedChatMessage.getSender() + "'\n"
-				+ "was send to '" + format("/topic/channel.%s", roomId) + "'");
+				+ "was send to '" + Consts.getTopic(roomId) + "'");
 		
 	}
 

@@ -13,8 +13,8 @@ public class FeignConfig {
      * Method to create a bean to increase the timeout value.
      * It is used to overcome the Retryable exception while invoking the feign client.
      * @param env,
-     *            An {@link ConfigurableEnvironment}
-     * @return A {@link Request}
+     * 		an {@link ConfigurableEnvironment}
+     * @return a {@link Request}
      */
     @Bean
     public static Request.Options requestOptions(ConfigurableEnvironment env) {
