@@ -16,12 +16,12 @@ public class FeignConfig {
      *            An {@link ConfigurableEnvironment}
      * @return A {@link Request}
      */
-    /*@Bean
+    @Bean
     public static Request.Options requestOptions(ConfigurableEnvironment env) {
         int ribbonReadTimeout = env.getProperty("ribbon.ReadTimeout", int.class, 4000);
         int ribbonConnectionTimeout = env.getProperty("ribbon.ConnectTimeout", int.class, 4000);
 
         return new Request.Options(ribbonConnectionTimeout, ribbonReadTimeout);
-    }*/
+    }
     
 }
