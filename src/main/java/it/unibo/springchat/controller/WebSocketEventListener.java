@@ -17,8 +17,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
-import it.unibo.springchat.config.Consts;
 import it.unibo.springchat.model.ChatMessage.MessageType;
+import it.unibo.springchat.utility.Consts;
 import it.unibo.springchat.model.OrderedChatMessage;
 
 @Component
@@ -48,8 +48,8 @@ public class WebSocketEventListener {
 		// Retrieves and checks session data for the socket connection
 		final StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 		final String sessionId = headerAccessor.getSessionId();
-		final String username = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_USERNAME);
-		final String roomId = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ROOM_ID);
+		final String username = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_USERNAME_ATTR);
+		final String roomId = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ROOM_ID_ATTR);
 		if (sessionId != null && username != null && roomId != null) {
 			// Unsubscribes the disconnected client, if it was subscribed to a topic room
 			unsubscribeClient(sessionId);

@@ -17,7 +17,7 @@ public class FeignConfig {
      * @return a {@link Request}
      */
     @Bean
-    public static Request.Options requestOptions(ConfigurableEnvironment env) {
+    public static Request.Options requestOptions(final ConfigurableEnvironment env) {
         int ribbonReadTimeout = env.getProperty("ribbon.ReadTimeout", int.class, 4000);
         int ribbonConnectionTimeout = env.getProperty("ribbon.ConnectTimeout", int.class, 4000);
 

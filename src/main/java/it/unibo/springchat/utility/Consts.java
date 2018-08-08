@@ -1,4 +1,4 @@
-package it.unibo.springchat.config;
+package it.unibo.springchat.utility;
 
 import static java.lang.String.format;
 
@@ -14,12 +14,17 @@ public final class Consts {
 	/**
 	 * Key string for the session attribute related to the client's username.
 	 */
-	public static final String SESSION_USERNAME = "username";
+	public static final String SESSION_USERNAME_ATTR = "username";
 	
 	/**
 	 * Key string for the session attribute related to the room id in which the client is connected.
 	 */
-	public static final String SESSION_ROOM_ID = "room_id";
+	public static final String SESSION_ROOM_ID_ATTR = "roomId";
+	
+	/**
+	 * Key string for the session attribute related to the session id.
+	 */
+	public static final String SESSION_ID_ATTR = "sessionId";
 	
 	/**
 	 * Gets the topic with the routing key for the specified room id.

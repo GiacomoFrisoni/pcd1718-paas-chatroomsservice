@@ -1,5 +1,6 @@
 package it.unibo.springchat.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -10,10 +11,16 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+	@Bean
+    public HttpSessionIdHandshakeInterceptor handshakeInterceptor() {
+        return new HttpSessionIdHandshakeInterceptor();
+    }
+	
 	@Override
 	public void registerStompEndpoints(final StompEndpointRegistry registry) {
 		// Registers a STOMP end-point over websockets with Sock.js enabled
 		registry.addEndpoint("/websocket-chat")
+				.addInterceptors(handshakeInterceptor())
 				.setAllowedOrigins("*")
 				.withSockJS();
 	}
