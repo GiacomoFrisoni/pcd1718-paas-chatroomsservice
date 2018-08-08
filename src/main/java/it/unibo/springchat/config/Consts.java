@@ -39,7 +39,6 @@ public final class Consts {
 	 */
 	public static final String getRoomIdFromTopic(final String topic) {
 		Objects.requireNonNull(topic);
-		System.out.print("TOPIC: " + topic);
 		return topic.split("\\.")[1];
 	}
 	

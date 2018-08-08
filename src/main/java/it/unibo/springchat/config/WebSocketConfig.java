@@ -30,7 +30,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		 * rabbitmq-plugins enable rabbitmq_stomp.
 		 * NOTE: RabbitMQ does not support "/" as a destination separator.
 		 */
-		registry.enableStompBrokerRelay("/topic")
+		registry.enableStompBrokerRelay("/queue", "/topic")
 				.setRelayHost("localhost")
 				.setRelayPort(61613)
 				.setClientLogin("guest")
