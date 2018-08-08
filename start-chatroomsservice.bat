@@ -1,0 +1,1 @@
+start powershell -NoExit -command "$Host.UI.RawUI.WindowTitle = 'ChatRoomsService'; gradle bootjar; heroku local"
