@@ -6,12 +6,6 @@ eureka.client:
   fetchRegistry: true # pull down a local copy of the registry
   serviceUrl.defaultZone: ${SERVICE_REGISTRY_URI}
 
-# Disable Hystrix timeout globally (for all services)
-# hystrix.command.default.execution.timeout.enabled: false
-
-# Increase the Hystrix timeout to 60s (globally)
-#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
-
 hystrix:
  threadpool.default.coreSize: "20"
  threadpool.default.maxQueueSize: "500000"
