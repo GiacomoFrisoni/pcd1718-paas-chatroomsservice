@@ -14,7 +14,4 @@ interface TicketDispenserClient {
     @RequestMapping(method = RequestMethod.GET, value = "/app/ticket/{roomId}/count")
     Long countTickets(@PathVariable("roomId") final String roomId);
     
-    @RequestMapping(method = RequestMethod.POST, value = "/app/ticket/{roomId}/reset")
-    void resetTicket(@PathVariable("roomId") final String roomId);
-    
 }

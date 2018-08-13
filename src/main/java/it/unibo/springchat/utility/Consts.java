@@ -29,6 +29,9 @@ public final class Consts {
 	 */
 	public static final String SESSION_ID_ATTR = "sessionId";
 	
+	/**
+	 * Starter key string for chat rooms' channels.
+	 */
 	private static final String TOPIC_ROOM_STARTER = "/topic/channel.";
 	
 	/**
