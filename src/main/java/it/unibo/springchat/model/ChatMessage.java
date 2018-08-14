@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ChatMessage {
 
 	public enum MessageType {
-		CHAT, JOIN, LEAVE
+		CHAT, JOIN, LEAVE, GET_MUTEX, RELEASE_MUTEX
 	}
 
 	private MessageType messageType;

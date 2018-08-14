@@ -30,6 +30,11 @@ public final class Consts {
 	public static final String SESSION_ID_ATTR = "sessionId";
 	
 	/**
+	 * Maximum duration of mutual exclusion acquisition.
+	 */
+	public static final Long MUTEX_TMAX = 10000L;
+	
+	/**
 	 * Starter key string for chat rooms' channels.
 	 */
 	private static final String TOPIC_ROOM_STARTER = "/topic/channel.";
