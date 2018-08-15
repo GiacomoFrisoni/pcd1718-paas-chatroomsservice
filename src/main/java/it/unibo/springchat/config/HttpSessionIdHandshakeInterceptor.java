@@ -28,8 +28,7 @@ public class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor {
 		logger.info("Handshake interceptor called!");
 		if (request instanceof ServletServerHttpRequest) {
 			final ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-			final HttpSession session = servletRequest.getServletRequest().getSession(false);
-			logger.info("SERVLET REQUEST: " + servletRequest.toString());
+			final HttpSession session = servletRequest.getServletRequest().getSession();
 			if (session != null) {
 				attributes.put(Consts.SESSION_ID_ATTR, session.getId());
 			}

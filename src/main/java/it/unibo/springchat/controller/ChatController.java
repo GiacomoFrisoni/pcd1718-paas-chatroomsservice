@@ -73,16 +73,17 @@ public class ChatController {
 		 */
 		final Optional<String> clientWithMutex = Optional.ofNullable(redis.opsForValue().get(roomId));
 		logger.info(clientWithMutex.toString());
+		logger.info(headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR).toString());
 		if (!clientWithMutex.isPresent()
-				|| clientWithMutex.get().equals(headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR))) {
+				|| clientWithMutex.get().equals(headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR).toString())) {
 			
-			// Retrieves a ticket from the ticket dispenser service and creates and ordered message
+			// Retrieves a ticket from the ticket dispenser service and creates an ordered message
 			final OrderedChatMessage orderedChatMessage = new OrderedChatMessage(
 					chatMessage.getMessageType(),
 					chatMessage.getContent(),
 					chatMessage.getSender(),
 					this.ticketDispenserClient.getTicket(roomId));
-	        
+			
 			// Sends the ordered message to the clients of the same room
 			this.messagingTemplate.convertAndSend(Consts.getTopic(roomId), orderedChatMessage);
 			
@@ -99,21 +100,17 @@ public class ChatController {
 	@MessageMapping("/chat/{roomId}/getMutex")
 	public void getMutex(@DestinationVariable final String roomId, @Payload final ChatMessage chatMessage,
 			final SimpMessageHeaderAccessor headerAccessor) {
-
-		logger.info("SI PUO FAREEEEEEEEE");
 		
 		// Registers the new client with mutual exclusion only if the critical section is not already occupied
 		if (redis.opsForValue().setIfAbsent(
 				roomId,
 				(String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR))) {
-
-			logger.info("NESSUNO AVEVA LA MUTEX");
 			
-			// Retrieves the name of the new connected client
+			// Retrieves the name of the new connected client and the chat room topic
 			final String username = chatMessage.getSender();
 			final String topicRoom = Consts.getTopic(roomId);
 			
-			// Retrieves a ticket from the ticket dispenser service and creates and ordered message
+			// Retrieves a ticket from the ticket dispenser service and creates an ordered message
 			final OrderedChatMessage orderedChatMessage = new OrderedChatMessage(
 					MessageType.GET_MUTEX,
 					username,
@@ -143,7 +140,7 @@ public class ChatController {
 			// Releases the mutual exclusion
 			redis.delete(roomId);
 			
-			// Retrieves the name of the new connected client
+			// Retrieves the name of the new connected client and the chat room topic
 			final String username = chatMessage.getSender();
 			final String topicRoom = Consts.getTopic(roomId);
 			
