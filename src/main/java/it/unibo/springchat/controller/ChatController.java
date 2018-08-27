@@ -65,17 +65,16 @@ public class ChatController {
 	public void sendMessage(@DestinationVariable final String roomId, @Payload final ChatMessage chatMessage,
 			final SimpMessageHeaderAccessor headerAccessor) {
 		
-		logger.info("Trying to send the message...");
+		logger.info("Trying to send the message \"" + chatMessage.getContent() + "\"");
 		
 		/*
 		 * Sends a message only if nobody has the mutual exclusion
-		 * or only if the client is the one who has entered into the critical section.
+		 * or only if the client is the one (same socket session id) who has entered into the critical section.
 		 */
 		final Optional<String> clientWithMutex = Optional.ofNullable(redis.opsForValue().get(roomId));
-		logger.info(clientWithMutex.toString());
-		logger.info(headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR).toString());
+		logger.info("Client with mutex: " + clientWithMutex.toString());
 		if (!clientWithMutex.isPresent()
-				|| clientWithMutex.get().equals(headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR).toString())) {
+				|| clientWithMutex.get().equals(headerAccessor.getSessionId())) {
 			
 			// Retrieves a ticket from the ticket dispenser service and creates an ordered message
 			final OrderedChatMessage orderedChatMessage = new OrderedChatMessage(
@@ -101,10 +100,13 @@ public class ChatController {
 	public void getMutex(@DestinationVariable final String roomId, @Payload final ChatMessage chatMessage,
 			final SimpMessageHeaderAccessor headerAccessor) {
 		
-		// Registers the new client with mutual exclusion only if the critical section is not already occupied
+		/*
+		 * Registers the new client with mutual exclusion only if the critical section is not already occupied.
+		 * It uses the socket session id (and not the http once) for the mutual exclusion handling.
+		 */
 		if (redis.opsForValue().setIfAbsent(
 				roomId,
-				(String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR))) {
+				headerAccessor.getSessionId())) {
 			
 			// Retrieves the name of the new connected client and the chat room topic
 			final String username = chatMessage.getSender();
@@ -135,7 +137,7 @@ public class ChatController {
 		
 		// Checks if the client is the one who has the mutual exclusion
 		if (redis.opsForValue().get(roomId).equals(
-				(String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR))) {
+				headerAccessor.getSessionId())) {
 			
 			// Releases the mutual exclusion
 			redis.delete(roomId);

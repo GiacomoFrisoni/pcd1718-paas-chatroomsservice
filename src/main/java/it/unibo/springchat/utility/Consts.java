@@ -25,9 +25,9 @@ public final class Consts {
 	public static final String SESSION_ROOM_ID_ATTR = "roomId";
 	
 	/**
-	 * Key string for the session attribute related to the session id.
+	 * Key string for the session attribute related to the http session id.
 	 */
-	public static final String SESSION_ID_ATTR = "sessionId";
+	public static final String HTTP_SESSION_ID_ATTR = "httpSessionId";
 	
 	/**
 	 * Maximum duration of mutual exclusion acquisition.

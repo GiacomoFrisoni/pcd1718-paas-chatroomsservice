@@ -36,10 +36,9 @@ public class WebSocketEventListener {
 	public void handleWebSocketDisconnectListener(final SessionDisconnectEvent event) {
 		// Retrieves and checks session data for the socket connection
 		final StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-		final String sessionId = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ID_ATTR);
 		final String username = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_USERNAME_ATTR);
 		final String roomId = (String) headerAccessor.getSessionAttributes().get(Consts.SESSION_ROOM_ID_ATTR);
-		if (sessionId != null && username != null && roomId != null) {
+		if (username != null && roomId != null) {
 			// Sends a ordered logout message to the clients connected in the same room
 			final OrderedChatMessage leaveMessage = new OrderedChatMessage(
 					MessageType.LEAVE,

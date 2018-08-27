@@ -30,7 +30,7 @@ public class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor {
 			final ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			final HttpSession session = servletRequest.getServletRequest().getSession();
 			if (session != null) {
-				attributes.put(Consts.SESSION_ID_ATTR, session.getId());
+				attributes.put(Consts.HTTP_SESSION_ID_ATTR, session.getId());
 			}
 		}
 		return true;
