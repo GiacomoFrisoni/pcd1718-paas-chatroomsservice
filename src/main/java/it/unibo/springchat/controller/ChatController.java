@@ -156,6 +156,8 @@ public class ChatController {
 			this.messagingTemplate.convertAndSend(topicRoom, orderedChatMessage);
 			logger.info("User " + username + " has released the mutex from " + roomId + ". Sent a message to " + topicRoom);
 			
+		} else {
+			logger.info("Mutex acquired by another user");
 		}
 		
 	}

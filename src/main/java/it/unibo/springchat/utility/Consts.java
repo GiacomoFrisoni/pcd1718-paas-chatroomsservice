@@ -32,7 +32,7 @@ public final class Consts {
 	/**
 	 * Maximum duration of mutual exclusion acquisition.
 	 */
-	public static final Long MUTEX_TMAX = 100000L;
+	public static final Long MUTEX_TMAX = 10000L;
 	
 	/**
 	 * Starter key string for chat rooms' channels.
